@@ -2,7 +2,7 @@ from googleapiclient.discovery import build
 from google.oauth2 import service_account
 import os
 from create_xlsx import Create_xlsx
-
+from statistics import Statistics
 class App:
     
 
@@ -96,6 +96,9 @@ class App:
 
         xlsx_adapter = Create_xlsx(output_folder="Табеля/")
         xlsx_adapter.create(students=students)
+        stats = Statistics(document_id = spreadsheet_id, first_semester=self.list, second_semester = self.list2)
+        stats.generate_statictics()
+
         print("Application succsesfully completed =)")
 
         

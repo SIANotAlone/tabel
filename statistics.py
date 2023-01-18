@@ -139,6 +139,31 @@ class Statistics:
             grd["10"] = count10
             grd["11"] = count11
             grd["12"] = count12
+            sum = count1 + count2 + count3 + count4 + count5 + count6 + count7 + count8 + count9 + count10 + count11 + count12
+            level1_count = count1 + count2 + count3
+            level2_count = count4 + count5 + count6 
+            level3_count = count7 + count8 + count9
+            level4_count = count10 + count11 + count12
+            if sum != 0:
+                level1_percent = level1_count/sum*100
+                level2_percent = level2_count/sum*100
+                level3_percent = level3_count/sum*100
+                level4_percent = level4_count/sum*100
+                grd["sum"] = sum
+                grd["level1_count"] = level1_count
+                grd["level2_count"] = level2_count
+                grd["level3_count"] = level3_count
+                grd["level4_count"] = level4_count
+                grd["level1_percent"] = level1_percent
+                grd["level2_percent"] = level2_percent
+                grd["level3_percent"] = level3_percent
+                grd["level4_percent"] = level4_percent
+            children_count = len(subj)-1
+            if children_count != 0:
+                average = (1*count1+2*count2+3*count3+4*count1+5*count5+6*count6+7*count7+8*count8+9*count9+10*count10+11*count11+12*count12)/children_count
+            grd["children_count"] = children_count
+            grd["average"] = average
+
             subjetcs[subj[0]] = grd
             subj.pop(0)
         
