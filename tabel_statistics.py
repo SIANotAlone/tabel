@@ -4,7 +4,7 @@ import pandas as pd
 import os
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
-
+from xlsx_stats import Create_xlsx_statistics
 
 class Statistics:
     
@@ -170,7 +170,10 @@ class Statistics:
 
 
         # print(data_from_sheet)
-        print(subjetcs)
+        #print(subjetcs)
+        report = Create_xlsx_statistics(output_folder="Звіти/")
+        report.create(data=subjetcs)
+
 
 
 
