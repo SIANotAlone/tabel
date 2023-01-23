@@ -52,8 +52,13 @@ class App:
         #print(data_from_sheet2[0][9])
         #print(data_from_sheet2)
         #print(data_from_sheet[3])
-
-
+        klas = data_from_sheet[0][8]
+        first_semstr = data_from_sheet[0][9]
+        second_semstr = data_from_sheet2[0][9]
+        year = data_from_sheet[0][15]
+        f_teacher = data_from_sheet[0][30]
+        s_teacher = data_from_sheet2[0][26]
+        
         #getting list subjects and remove unnesesery items(first 2 and last 2)
         #subjects = data_from_sheet[3]
         # del subjects[0]
@@ -98,7 +103,7 @@ class App:
         xlsx_adapter = Create_xlsx(output_folder="Табеля/")
         xlsx_adapter.create(students=students)
         stats = Statistics(document_id = spreadsheet_id, first_semester=self.list, second_semester = self.list2)
-        stats.generate_statictics()
+        stats.generate_statictics(klas=klas, f_semester=first_semstr, s_semester=second_semstr, year=year, f_teacher=f_teacher, s_teacher=s_teacher)
 
        
         print("Application succsesfully completed =)")

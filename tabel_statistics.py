@@ -15,45 +15,8 @@ class Statistics:
         self.first_semester = first_semester
         self.second_semester = second_semester
 
-    def generate_statictics(self):
-        #print(self.data_from_first_semester[3])
-
-        # grades = []
-        # grade = {}
-        # j=4
-        # for subject in self.data_from_first_semester[3]:
-        #     if subject != "":
-                
-        #         i=2
-        #         grade[subject] = []
-               
-        # data1  = self.data_from_first_semester
-        # data1.pop(0)
-        # data1.pop(0)
-        # data1.pop(0)
-        # for item in data1:
-        #     item.pop(0)
-        #     item.pop(0)
-        # data1.pop(0)
-        # data1.pop(len(data1)-1)
+    def generate_statictics(self, klas, f_semester, s_semester, year, f_teacher, s_teacher):
         
-        
-        
-        
-        # i=0
-        # print(data1[0])
-        # for key,value in grade.items():
-        #     if i < len(data1)+1:
-        #         for item in data1:
-        #             #grade["Українська мова"].append(item[0])
-        #             grade[key].append(item[i])
-        #         i+=1
-
-        
-                
-                
-
-        # print(grade)
         SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
         BASE_DIR = os.path.dirname(os.path.abspath(__file__))
         SERVICE_ACCOUNT_FILE = os.path.join(BASE_DIR, 'credentials.json')
@@ -77,11 +40,17 @@ class Statistics:
 
         data_from_sheet = result.get('values', [])
         
-        #df2 = pd.DataFrame(data_from_sheet)
-        #print(df2.mean())
+        self.__gen_stats(data_from_sheet=data_from_sheet, semester="I семестр", klas=klas, f_semester = f_semester, s_semester=s_semester, year=year, f_teacher=f_teacher,s_teacher=s_teacher)
+        range = self.second_semester+ "!" + "C4:AN38"
+        result = service.get(spreadsheetId=spreadsheet_id,
+                             range=range, majorDimension ="COLUMNS", valueRenderOption='UNFORMATTED_VALUE').execute()
 
-        #print(f"average: {str(avg)}")
+        data_from_sheet2 = result.get('values', [])
+        self.__gen_stats(data_from_sheet=data_from_sheet2, semester="II семестр", klas=klas, f_semester = f_semester, s_semester=s_semester, year=year, f_teacher=f_teacher,s_teacher=s_teacher)
 
+    
+    def __gen_stats(self, data_from_sheet, semester, klas, f_semester, s_semester, year, f_teacher, s_teacher):
+        
         subjetcs = {}
 
         for subj in data_from_sheet:
@@ -162,7 +131,10 @@ class Statistics:
             if children_count != 0:
                 average = (1*count1+2*count2+3*count3+4*count1+5*count5+6*count6+7*count7+8*count8+9*count9+10*count10+11*count11+12*count12)/children_count
             grd["children_count"] = children_count
-            grd["average"] = average
+            try:
+                grd["average"] = average
+            except UnboundLocalError:
+                pass
 
             subjetcs[subj[0]] = grd
             subj.pop(0)
@@ -172,9 +144,6 @@ class Statistics:
         # print(data_from_sheet)
         #print(subjetcs)
         report = Create_xlsx_statistics(output_folder="Звіти/")
-        report.create(data=subjetcs)
-
-
-
+        report.create(data=subjetcs,semester=semester, klas=klas, f_semester=f_semester, s_semester=s_semester,year=year, f_teacher=f_teacher, s_teacher=s_teacher)
 
 

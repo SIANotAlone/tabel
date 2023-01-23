@@ -10,14 +10,17 @@ class Create_xlsx_statistics:
     def __init__(self, output_folder) -> None:
         self.output_folder = output_folder
         
-    def create(self, data):
+    def create(self, data, semester, klas, f_semester, s_semester, year, f_teacher, s_teacher):
         print("Generating xlsx report...")
 
         if not os.path.exists(self.output_folder):
             os.makedirs(self.output_folder)
     
         wb = Workbook()
+     
+        
         ws = wb.active
+        
         
         ws.column_dimensions['A'].width = 4
         ws.column_dimensions['B'].width = 30
@@ -49,6 +52,18 @@ class Create_xlsx_statistics:
 
 
         ws["B1"] = "Якісні показники навчальних досягнень  учнів"
+        ws["G1"] = klas
+        if semester == "I семестр":
+            ws["H1"] = f_semester
+            ws["V1"] = f_teacher
+        else:
+            ws["H1"] = s_semester
+            ws["V1"] = s_teacher
+
+        ws["L1"] = year
+        ws["N1"] = "н.р."
+        ws["Q1"] = "Класний керівник:__________"
+
         ws["A2"] = "№ п/п"
         ws["B2"] = "Предмет"
         ws["C2"] = "Кількість атестованих учнів"
@@ -250,19 +265,6 @@ class Create_xlsx_statistics:
             except KeyError:
                 pass
         ws["B"+str(i+5)] = "Експерт_______________________________"
-            
-
-
-
-            
-            
-
-           
-
-
-        
-
-
 
         ws.merge_cells('A2:A3')
         ws.merge_cells('B2:B3')
@@ -276,6 +278,6 @@ class Create_xlsx_statistics:
 
 
 
-        wb.save(self.output_folder + "звіт1"  +".xlsx")
+        wb.save(self.output_folder + "звіт_за_"+semester +".xlsx")
         print("Report successfully generated in current folder.")
 
