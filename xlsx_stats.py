@@ -261,6 +261,7 @@ class Create_xlsx_statistics:
                 ws["X"+str(i+3)].alignment = Alignment(horizontal="center", vertical="center")
 
 
+
                 i+=1
             except KeyError:
                 pass
