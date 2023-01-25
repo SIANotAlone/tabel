@@ -172,7 +172,7 @@ class Create_xlsx_statistics:
         ws["C2"].alignment = Alignment(horizontal="center", vertical="center", wrapText=True)
         ws["X2"].alignment = Alignment(horizontal="center", vertical="center", wrapText=True)
         ws["C2"].font = Font(size=8)
-
+        class_average_all_subjects =[]
         i=1
         for key,value in data.items():
            
@@ -187,7 +187,7 @@ class Create_xlsx_statistics:
                 ws["W"+str(i+3)] = str(value["level4_percent"])+ "%"
                 ws["X"+str(i+3)] = value["average"]
                 ws["C"+str(i+3)] = value["sum"]
-
+                class_average_all_subjects.append(value["average"])
 
                 ws["A"+str(i+3)] = str(i)
                 ws["B"+str(i+3)] = key
@@ -264,7 +264,17 @@ class Create_xlsx_statistics:
                 i+=1
             except KeyError:
                 pass
+        class_average = 0
+
+        for grd in class_average_all_subjects:
+            class_average+=grd
+        class_average = class_average/len(class_average_all_subjects)
+
         ws["B"+str(i+5)] = "Експерт_______________________________"
+        ws["W"+str(i+3)] = "клас"
+        ws["X"+str(i+3)] = "{:.2f}".format(class_average)
+        #ws["X"+str(i+4)].style = highlight1
+        ws["X"+str(i+3)].alignment = Alignment(horizontal="center", vertical="center")
 
         ws.merge_cells('A2:A3')
         ws.merge_cells('B2:B3')
