@@ -38,6 +38,10 @@ class Statistics:
                              range=range, majorDimension ="COLUMNS", valueRenderOption='UNFORMATTED_VALUE').execute()
 
         data_from_sheet = result.get('values', [])
+        #print(data_from_sheet)
+        subject = []
+        for subj in data_from_sheet:
+            subject.append(subj[0])
         
         self.__gen_stats(data_from_sheet=data_from_sheet, semester="I семестр", klas=klas, f_semester = f_semester, s_semester=s_semester, year=year, f_teacher=f_teacher,s_teacher=s_teacher)
         range = self.second_semester+ "!" + "C4:AN38"
@@ -47,9 +51,29 @@ class Statistics:
         data_from_sheet2 = result.get('values', [])
         self.__gen_stats(data_from_sheet=data_from_sheet2, semester="II семестр", klas=klas, f_semester = f_semester, s_semester=s_semester, year=year, f_teacher=f_teacher,s_teacher=s_teacher)
 
+
+        #print(data_from_sheet)
+        #print(data_from_sheet2)
+        #creating dataset for year report by average between first semester and second semester
+        i = 0
+        data_average = []
+        for subj in data_from_sheet:
+            grd3 = []
+            grd3.append(subject[i])
+            for grd1, grd2 in zip(data_from_sheet[i],data_from_sheet2[i]):
+                if (grd1 + grd2)%2 > 0.5:
+                    grd3.append((grd1 + grd2)//2+1)
+                else:
+                    grd3.append((grd1 + grd2)//2)
+                
+            i+=1
+            data_average.append(grd3)
+        self.__gen_stats(data_from_sheet=data_average, semester="Рік", klas=klas, f_semester = f_semester, s_semester=s_semester, year=year, f_teacher=f_teacher,s_teacher=s_teacher)
+
+
     
     def __gen_stats(self, data_from_sheet, semester, klas, f_semester, s_semester, year, f_teacher, s_teacher):
-        
+        #print(data_from_sheet)
         subjetcs = {}
 
         for subj in data_from_sheet:

@@ -56,6 +56,9 @@ class Create_xlsx_statistics:
         if semester == "I семестр":
             ws["H1"] = f_semester
             ws["V1"] = f_teacher
+        elif semester == "Рік":
+            ws["H1"] = "класу за рік"
+            ws["V1"] = s_teacher
         else:
             ws["H1"] = s_semester
             ws["V1"] = s_teacher
