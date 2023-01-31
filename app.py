@@ -103,7 +103,10 @@ class App:
         xlsx_adapter = Create_xlsx(output_folder="Табеля/")
         xlsx_adapter.create(students=students)
         stats = Statistics(document_id = spreadsheet_id, first_semester=self.list, second_semester = self.list2)
-        stats.generate_statictics(klas=klas, f_semester=first_semstr, s_semester=second_semstr, year=year, f_teacher=f_teacher, s_teacher=s_teacher)
+        try:
+            stats.generate_statictics(klas=klas, f_semester=first_semstr, s_semester=second_semstr, year=year, f_teacher=f_teacher, s_teacher=s_teacher)
+        except ZeroDivisionError:
+            pass
 
        
         print("Application succsesfully completed =)")

@@ -223,4 +223,4 @@ class Create_xlsx:
             wb.save(self.output_folder + student["name"]+"_табель"+".xlsx")
             name = student["name"]
             print(f"Табель {name} збережено.")
-        print("All documents successfully generated in current folder.")
+        print(f"Всі табеля успішно згенеровані в теці {self.output_folder}")

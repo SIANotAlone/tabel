@@ -11,7 +11,7 @@ class Create_xlsx_statistics:
         self.output_folder = output_folder
         
     def create(self, data, semester, klas, f_semester, s_semester, year, f_teacher, s_teacher):
-        print("Generating xlsx report...")
+        print(f"Створюємо звіт за {semester}...")
 
         if not os.path.exists(self.output_folder):
             os.makedirs(self.output_folder)
@@ -293,5 +293,5 @@ class Create_xlsx_statistics:
 
 
         wb.save(self.output_folder + "звіт_за_"+semester +".xlsx")
-        print("Report successfully generated in current folder.")
+        print(f"Звіт успішно згенеровано")
 
