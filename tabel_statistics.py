@@ -69,10 +69,9 @@ class Statistics:
             i+=1
             data_average.append(grd3)
 
-        try:
-            self.__gen_stats(data_from_sheet=data_average, semester="Рік", klas=klas, f_semester = f_semester, s_semester=s_semester, year=year, f_teacher=f_teacher,s_teacher=s_teacher)
-        except ZeroDivisionError:
-            pass
+        
+        self.__gen_stats(data_from_sheet=data_average, semester="Рік", klas=klas, f_semester = f_semester, s_semester=s_semester, year=year, f_teacher=f_teacher,s_teacher=s_teacher)
+        
         print(f"Звіт успішно згенеровано в теці Звіти/")
 
 
