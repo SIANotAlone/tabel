@@ -4,6 +4,8 @@ import os
 from create_xlsx import Create_xlsx
 from tabel_statistics import Statistics
 
+from config import tabel_folder
+
 class App:
     
 
@@ -100,7 +102,7 @@ class App:
         # print(students[0]["name"])
         # print(students[0]["second_semester"])
 
-        xlsx_adapter = Create_xlsx(output_folder="Табеля/")
+        xlsx_adapter = Create_xlsx(output_folder=tabel_folder + "/")
         xlsx_adapter.create(students=students)
         stats = Statistics(document_id = spreadsheet_id, first_semester=self.list, second_semester = self.list2)
         try:

@@ -5,6 +5,9 @@ from googleapiclient.discovery import build
 from google.oauth2 import service_account
 from xlsx_stats import Create_xlsx_statistics
 
+
+from config import report_folder, grades_range
+
 class Statistics:
     
     def __init__(self, *, document_id, first_semester, second_semester):
@@ -29,7 +32,7 @@ class Statistics:
         #id of document what`s splited for his link`
         spreadsheet_id = self.document_id
         #range - concatenate from list and range by symbol "!"
-        range = self.first_semester+ "!" + "C4:AN38"
+        range = self.first_semester+ "!" + grades_range
         
         #print(range2)
 
@@ -170,7 +173,7 @@ class Statistics:
 
         # print(data_from_sheet)
         #print(subjetcs)
-        report = Create_xlsx_statistics(output_folder="Звіти/")
+        report = Create_xlsx_statistics(output_folder=report_folder + "/")
         report.create(data=subjetcs,semester=semester, klas=klas, f_semester=f_semester, s_semester=s_semester,year=year, f_teacher=f_teacher, s_teacher=s_teacher)
 
 
